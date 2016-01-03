@@ -2,18 +2,25 @@
 
 var assert = require('assert');
 var util = require('util');
+var mockery = require('mockery');
 
 class ModuleMock {
   constructor(name) {
-    this.name = name;
+    /* jshint ignore:start */
+    this.className = new.target.name;
 
     // class is abstract
-    /* jshint ignore:start */
     assert.notEqual(new.target, ModuleMock,
-      util.format('class %s is abstract', new.target.name));
+      util.format('class %s is abstract', this.className));
     /* jshint ignore:end */
-    // require subclasses to implement register
-    assert.equal(typeof this.register, 'function');
+
+    this.name = name;
+  }
+
+  register() {
+    assert.notStrictEqual(this.mocks, undefined,
+      util.format('class %s must contain a mocks property', this.className));
+    mockery.registerMock(this.name, this.mocks);
   }
 }
 

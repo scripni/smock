@@ -9,19 +9,27 @@ describe('ModuleMock', function() {
     it('is abstract', function() {
       expect(function() { new ModuleMock(); }).to.throw(Error);
     });
-    it('has an abstract register method', function() {
-      expect(function() { new ModuleMockIncorrect(); }).to.throw(Error);
-      expect(function() { new ModuleMockCorrect(); }).to.not.throw(Error);
+    it('has an abstract mocks property', function() {
+      var incorrect = new ModuleMockIncorrect();
+      expect(function() { incorrect.register(); }).to.throw(Error);
+      var correct = new ModuleMockCorrect();
+      expect(function() { correct.register(); }).to.not.throw(Error);
     });
   });
 });
 
 class ModuleMockIncorrect extends ModuleMock {
-  // does not implement a 'register' method
+  constructor() {
+    super('incorrect');
+  }
 }
 
 class ModuleMockCorrect extends ModuleMock {
-  register() {
+  constructor() {
+    super('correct');
+  }
 
+  get mocks() {
+    return {};
   }
 }

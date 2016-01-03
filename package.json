@@ -1,6 +1,6 @@
 {
   "name": "smock",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A simple javascript mocking framework",
   "main": "index.js",
   "scripts": {

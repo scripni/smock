@@ -11,3 +11,9 @@ describe('Mock', function() {
     });
   });
 });
+
+class GoodMock extends Mock {
+  constructor() {
+    super({});
+  }
+}

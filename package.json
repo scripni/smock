@@ -20,6 +20,7 @@
     "url": "https://github.com/scripni/smock/issues"
   },
   "devDependencies": {
+    "chai": "^3.4.1",
     "gulp": "^3.9.0",
     "gulp-if": "^2.0.0",
     "gulp-jshint": "^2.0.0",

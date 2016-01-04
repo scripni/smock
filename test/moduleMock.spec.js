@@ -10,26 +10,14 @@ describe('ModuleMock', function() {
       expect(function() { new ModuleMock(); }).to.throw(Error);
     });
     it('has an abstract mocks property', function() {
-      var incorrect = new ModuleMockIncorrect();
-      expect(function() { incorrect.register(); }).to.throw(Error);
-      var correct = new ModuleMockCorrect();
-      expect(function() { correct.register(); }).to.not.throw(Error);
+      expect(function() { new ModuleMockChild('foo'); }).to.throw(Error);
+      expect(function() { new ModuleMockChild('foo', {}); }).to.not.throw(Error);
     });
   });
 });
 
-class ModuleMockIncorrect extends ModuleMock {
-  constructor() {
-    super('incorrect');
-  }
-}
-
-class ModuleMockCorrect extends ModuleMock {
-  constructor() {
-    super('correct');
-  }
-
-  get mocks() {
-    return {};
+class ModuleMockChild extends ModuleMock {
+  constructor(name, mocks) {
+    super(name, mocks);
   }
 }

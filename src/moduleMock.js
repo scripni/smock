@@ -5,7 +5,7 @@ var util = require('util');
 var mockery = require('mockery');
 
 class ModuleMock {
-  constructor(name) {
+  constructor(name, mocks) {
     /* jshint ignore:start */
     this.className = new.target.name;
 
@@ -14,12 +14,16 @@ class ModuleMock {
       util.format('class %s is abstract', this.className));
     /* jshint ignore:end */
 
+
+    assert.notStrictEqual(name, undefined,
+      util.format('name required', this.className));
+    assert.notStrictEqual(mocks, undefined,
+      util.format('mocks required', this.className));
     this.name = name;
+    this.mocks = mocks;
   }
 
   register() {
-    assert.notStrictEqual(this.mocks, undefined,
-      util.format('class %s must contain a mocks property', this.className));
     mockery.registerMock(this.name, this.mocks);
   }
 }
